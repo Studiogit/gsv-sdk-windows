@@ -115,7 +115,7 @@ In Visual Studio, ensure the `SqliteDataSource` path in `appsettings.json` will 
 
 Users may change the directory if they wish. 
 
-Select ```Debug->Start without debugging``` to start the server component on the system. 
+To start the server, right-click `GsvServer` within the Solution Explorer. Select `Debug -> Start New Instance` to start the server component on the system. 
 
 ![Debug](media/debug.png)
 
