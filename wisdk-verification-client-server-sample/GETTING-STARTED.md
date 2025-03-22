@@ -6,7 +6,7 @@ This repository contains the GSV sample server and client applications.
 
 # Project Layout
 
-Before you build the sample, you will need to install the GSV SDK on the build machine. After the engine is installed, open the project solution file under ```GSV-Server-Client/GSV-Server-Client.sln.```
+Before you build the sample, you will need to install the GSV SDK on the build machine. After the engine is installed, open the project solution file under ```GsvClientServerSample.sln.```
 
 The solution consists of 2 client-side components and 2 server-side components
 
@@ -74,9 +74,25 @@ These are the 3 primary files roles that interact. Additionally, GsvSignatureEng
 
 # How to license 
 
-After obtaining a verification license, insert it into GSV-Server-Client\GsvServer\appsettings.json. A temporary evaluation license can be found in the Verification SDK for Windows start guide.
+For licensing the client-server sample, two licenses are required:
 
-After obtaining a signature capture license, insert it into WacomInkVerificationSample\Main.cs here:
+- A verification license
+- A signature capture license
+
+After obtaining a verification license, insert it into `GSV-Server-Client\GsvServer\appsettings.json`, within `License`. It appears by default like this: 
+
+```json
+
+"License": "<Insert verification license here>"
+
+```
+
+A custom user license is supplied separately via email from *enterprise-support@wacom.com* upon receipt of your Wacom ID.
+To obtain a Wacom ID please register at https://developer.wacom.com. Your Wacom ID is the email address which you use for the registration.
+
+Additionally, users are required to add a signature capture license. Users can obtain a Lite signature capture license [here](https://github.com/Wacom-Developer/sdk-for-signature-windows/blob/master/GETTING-STARTED.md#wacom-ink-sdk-for-signature-lite-license). 
+
+After obtaining a signature capture license, insert it into `WacomInkVerificationSample\Main.cs` here:
 
 ```
  try
@@ -91,11 +107,29 @@ After obtaining a signature capture license, insert it into WacomInkVerification
 
 ## Building the sample
 
-After setting the configuration files to match your system layout, select the API project and select ```Debug->Start without debugging``` to start the server component on the system. Once this has built, the server will run and the API documentation can be viewed using the local swagger implementation:
+In Visual Studio, the `SqliteDataSource` path in `appsettings.json` will set where the signature templates are stored. By default, this will be: 
+
+```
+  "SqliteDataSource": "Data Source=C:\\WacomVerification\\templates.db",
+```
+
+Users may change the directory if they wish. 
+
+To start the server, right-click `GsvServer` within the Solution Explorer. Select `Debug -> Start New Instance` to start the server component on the system. 
+
+![Debug](media/debug.png)
+
+Once this has built, the server will run. Relevant documentation can be viewed using the local swagger implementation:
 
 https://localhost:5001/swagger/index.html
 
-You can now build the client app by selecting the WacomInkVerificationSample target in the solution and selecting the debug option. This will allow you to create a new template, capture or load signatures and send the verification requests to the local running GSV server.
+Additional documentation can also be viewed in `%PROGRAMFILES%\Wacom\Signature Verification` after running the SDK installer. 
+
+You can now build the client app by selecting the WacomInkVerificationSample target in the solution, selecting ```Debug->Start new instance```. 
+
+![New instance](media/new-instance.png)
+
+This will allow you to create a new template, capture or load signatures and send the verification requests to the local running GSV server.
 
 All com calls were replaced with http calls. All the interesting work is now being handled over http over a separate server. When we begun it it's local but we could throw it on a server and work on it remotely. 
 
